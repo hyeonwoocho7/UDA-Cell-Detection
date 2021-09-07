@@ -16,20 +16,13 @@ import numpy as np
 # input random seed
 seed = 45
 random.seed(seed)
-
 # input paths
 # test path
 test_path = "Data/test_B2"
 # target path
-<<<<<<< HEAD
 target_path = "Data/C2+D2"
 # source path
 base_path = "Data/D2_1"
-=======
-target_path = "Data/D2_1"
-# source path
-base_path = "Data/D4_1"
->>>>>>> e60ad354a6a1ddcc2a3fcae2c6fdcab9c4392e67
 base_ori_paths = base_path / Path("ori")
 base_gt_paths = base_path / Path("gt")
 source = base_path.split('/')[-1]
