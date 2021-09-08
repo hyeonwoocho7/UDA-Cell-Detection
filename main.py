@@ -97,7 +97,7 @@ source = base_path.split('/')[-1]
 #     os.makedirs("Result/Discriminator/step{}".format(str(i)), exist_ok=True)
 #     Discriminator_predict(i, seed, Det_results)
 steps = 10
-for i in range(5, steps):
+for i in range(4, steps):
     Det_Data_path = "Data/Detection/step{}/train".format(str(i))
     Dis_path = "Data/Discriminator/step{}/train".format(str(i))
     os.makedirs(Dis_path, exist_ok=True)
