@@ -171,18 +171,18 @@ class Predict:
 
 
             # the number of peak
-            peaks = local_maxima(pgt, 100, 2)
-            n_peaks = len(peaks)
-            if self.step == 0:
-                if 0 < n_peaks <= peak_threshold:
-                    cv2.imwrite(str(self.select_ori / Path(os.path.basename(path))), ori)
-                    cv2.imwrite(str(self.select_pgt / Path(os.path.basename(path))), pgt)
-            else:
-                if n_peaks <= peak_threshold:
-                    cv2.imwrite(str(self.select_ori / Path(os.path.basename(path))), ori)
-                    cv2.imwrite(str(self.select_pgt / Path(os.path.basename(path))), pgt)
-            # cv2.imwrite(str(self.select_ori / Path(os.path.basename(path))), ori)
-            # cv2.imwrite(str(self.select_pgt / Path(os.path.basename(path))), pgt)
+            # peaks = local_maxima(pgt, 100, 2)
+            # n_peaks = len(peaks)
+            # if self.step == 0:
+            #     if 0 < n_peaks <= peak_threshold:
+            #         cv2.imwrite(str(self.select_ori / Path(os.path.basename(path))), ori)
+            #         cv2.imwrite(str(self.select_pgt / Path(os.path.basename(path))), pgt)
+            # else:
+            #     if n_peaks <= peak_threshold:
+            #         cv2.imwrite(str(self.select_ori / Path(os.path.basename(path))), ori)
+            #         cv2.imwrite(str(self.select_pgt / Path(os.path.basename(path))), pgt)
+            cv2.imwrite(str(self.select_ori / Path(os.path.basename(path))), ori)
+            cv2.imwrite(str(self.select_pgt / Path(os.path.basename(path))), pgt)
 
         ori_ps = sorted(self.select_ori.glob("*.tif"))
 

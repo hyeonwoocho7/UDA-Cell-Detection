@@ -86,7 +86,7 @@ class Predict:
         for i, path in enumerate(paths):
             ori = cv2.imread(str(path), 0)
             pre_img = self.pred(ori)
-            pgt_img = make_pgt(pre_img, threshold=200, dist=2)
+            pgt_img = make_pgt(pre_img, threshold=100, dist=4)
 
             cv2.imwrite(str(self.save_pred_path / Path(os.path.basename(str(path)))), pre_img)
             cv2.imwrite(str(self.save_ori_path / Path(os.path.basename(str(path)))), ori)
