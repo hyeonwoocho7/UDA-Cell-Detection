@@ -18,11 +18,11 @@ seed = 45
 random.seed(seed)
 # input paths
 # test path
-test_path = "Data/test_seq6"
+test_path = "Data/test_seq13"
 # target path
-target_path = "Data/seq5+seq7"
+target_path = "Data/seq15"
 # source path
-base_path = "Data/seq5"
+base_path = "Data/seq2"
 base_ori_paths = base_path / Path("ori")
 base_gt_paths = base_path / Path("gt")
 source = base_path.split('/')[-1]
