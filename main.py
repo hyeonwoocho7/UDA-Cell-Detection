@@ -75,7 +75,7 @@ for i in range(0, steps):
     Discriminator_predict(i, seed, Det_results)
 
 
-steps = 4
+steps = 5
 for i in range(1, steps):
     Det_Data_path = "Data/Detection/step{}/train".format(str(i))
     Dis_path = "Data/Discriminator/step{}/train".format(str(i))
