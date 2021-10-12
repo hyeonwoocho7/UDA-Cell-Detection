@@ -116,7 +116,7 @@ class Predict:
                 output2 = torch.sigmoid(output1)
                 y1.append(output2)
             confidence = sum(y1) / len(y1)
-            predict = confidence > 0.5
+            # predict = confidence > 0.5
             confidence = confidence.data.numpy()
             # Entropy = -confidence*np.log2(confidence)
             y1 = np.array(y1)

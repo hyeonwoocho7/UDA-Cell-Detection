@@ -18,9 +18,9 @@ seed = 45
 random.seed(seed)
 # input paths
 # test path
-test_path = "Data/test_seq6"
+test_path = "Data/test_seq9"
 # target path
-target_path = "Data/seq5"
+target_path = "Data/seq12"
 # source path
 base_path = "Data/seq2"
 base_ori_paths = base_path / Path("ori")
@@ -92,6 +92,8 @@ for i in range(1, steps):
                     "Data/Detection/step{}/train".format(str(i + 1)))
     os.makedirs("Result/Discriminator/step{}".format(str(i)), exist_ok=True)
     Discriminator_predict(i, seed, Det_results)
+
+
 
 
 
