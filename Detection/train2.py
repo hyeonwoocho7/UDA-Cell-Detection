@@ -2,14 +2,16 @@ from tqdm import tqdm
 from torch import optim
 import torch.utils.data
 import torch.nn as nn
-from Detection.utils import CellImageLoad1
+from .utils import CellImageLoad1
 from pathlib import Path
 import matplotlib.pyplot as plt
 import numpy as np
 import cv2
-from Detection.networks import UNet
+from .networks import UNet
 import argparse
 import sys
+
+sys.path.append('../')
 from Discriminator.utils import set_seed, worker_init_fn
 
 def parse_args(step):
@@ -22,7 +24,7 @@ def parse_args(step):
         "--train_path",
         dest="train_path",
         help="training dataset's path",
-        default="/home/hyeonwoo/research/Experiment1/Result/Discriminator/step0_adversarial/save_selected_top",
+        default="-1",
         type=str,
     )
     parser.add_argument(
@@ -30,7 +32,7 @@ def parse_args(step):
         "--weight_path",
         dest="weight_path",
         help="save weight path",
-        default="/home/hyeonwoo/research/Experiment1/Model/Detection/step1/best.pth".format(str(step)),
+        default="../Micaii/seq13+seq5=seq6/Ablation_study/-Bayesian/Model/Detection/step{}/best.pth".format(str(step)),
     )
     if step > 0:
         parser.add_argument(
@@ -38,7 +40,7 @@ def parse_args(step):
             "--load_weight_path",
             dest="load_weight_path",
             help="load weight path",
-            default="/home/hyeonwoo/research/Experiment1/Model/Detection/step0_notdsbn/best.pth",
+            default="../Micaii/seq13+seq5=seq6/Ablation_study/-Bayesian/Model/Detection/step{}/best.pth".format(str(step-1)),
         )
 
 
@@ -48,7 +50,7 @@ def parse_args(step):
     )
     if step == 0:
         parser.add_argument(
-            "-b", "--batch_size", dest="batch_size", help="batch_size", default=32, type=int
+            "-b", "--batch_size", dest="batch_size", help="batch_size", default=4, type=int
         )
     else:
         parser.add_argument(
@@ -74,10 +76,10 @@ def parse_args(step):
 
 
 class _TrainBase:
-    def __init__(self, args, net, device, step):
-
+    def __init__(self, args, net, device, step, seed):
+        set_seed(seed)
         ori_paths = self.gather_path(args.train_path, "ori")
-        gt_paths = self.gather_path(args.train_path, "pgt")
+        gt_paths = self.gather_path(args.train_path, "gt")
         data_loader = CellImageLoad1(ori_paths, gt_paths)
         self.train_dataset_loader = torch.utils.data.DataLoader(
             data_loader, batch_size=args.batch_size, shuffle=True, num_workers=0, worker_init_fn=worker_init_fn
@@ -124,7 +126,7 @@ class _TrainBase:
     def show_graph(self):
         x = list(range(len(self.losses)))
         plt.plot(x, self.losses)
-        plt.savefig("./Model/Detection/step{}/loss.png".format(str(self.step)))
+        plt.savefig("../Micaii/seq13+seq5=seq6/Ablation_study/-Bayesian/Model/Detection/step{}/loss.png".format(str(self.step)))
         plt.close()
 
 class TrainNet(_TrainBase):
@@ -155,7 +157,7 @@ class TrainNet(_TrainBase):
         )
 
     def main(self):
-        device = torch.device('cuda:0')
+        device = torch.device('cuda:1')
         if self.vis:
             import visdom
 
@@ -237,16 +239,16 @@ class TrainNet(_TrainBase):
 
 
 
-def Detection(step):
+def Detection(step, seed, path):
     args = parse_args(step)
-    args.train_path = [Path(args.train_path)]
 
+    args.train_path = [Path(path)]
 
     args.weight_path = Path(args.weight_path)
 
     # define model
     net = UNet(n_channels=1, n_classes=1)
-    device = torch.device('cuda:0')
+    device = torch.device('cuda:1')
     if step > 0:
         net.load_state_dict(torch.load(args.load_weight_path, map_location=device))
     if args.gpu:
@@ -254,9 +256,6 @@ def Detection(step):
 
     args.net = net
 
-    train = TrainNet(args, net, device, step)
+    train = TrainNet(args, net, device, step, seed)
 
     train.main()
-
-if __name__ == '__main__':
-    Detection(0)

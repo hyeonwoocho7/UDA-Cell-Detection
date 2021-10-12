@@ -118,9 +118,11 @@ class Predict:
             confidence = sum(y1) / len(y1)
             predict = confidence > 0.5
             confidence = confidence.data.numpy()
-            Entropy = -confidence*np.log2(confidence)
+            # Entropy = -confidence*np.log2(confidence)
+            y1 = np.array(y1)
+            preds_var = np.mean(np.var(y1, axis=0))
             with self.save_entropy.open(mode="a") as f:
-                f.write("%.12f, %.12f, %s\n" % (Entropy, confidence, ori_path))
+                f.write("%.12f, %.12f, %s\n" % (preds_var, confidence, ori_path))
 
 
 
