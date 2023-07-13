@@ -1,4 +1,4 @@
-# Effective pseudo-labeling based on heatmap for unsupervised domain adaptation in cell detection-MIA2022
+# Effective pseudo-labeling based on heatmap for unsupervised domain adaptation in cell detection-MedIA2022
 This is Official code of "Effective pseudo-labeling based on heatmap for unsupervised domain adaptation in cell detection", Medical Image Analsis 2022. [\[Paper\]](https://arxiv.org/abs/2303.05269)
 
 This method is a extended version of "Cell Detection in Domain Shift Problem Using Pseudo-Cell-Position Heatmap" in MICCAI 2021. If you want see paper or code, visit here [\[Paper\]](https://arxiv.org/abs/2107.08653), [\[Code\]](https://github.com/hyeonwoocho7/Cell_Detection-MICCAI).
